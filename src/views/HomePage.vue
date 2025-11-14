@@ -1,59 +1,63 @@
-<script setup lang="ts">
-import { ref, defineEmits } from 'vue'
-
-// 1️⃣ Definimos el evento personalizado "accionRealizada"
-const emit = defineEmits(['accionRealizada'])
-
-// 2️⃣ Creamos el contador reactivo
-const contador = ref(0)
-
-// 3️⃣ Una sola función para manejar todas las acciones
-const manejarAccion = (accion: string) => {
-  if (accion === 'incrementar') contador.value++
-  else if (accion === 'decrementar' && contador.value > 0) contador.value--
-  else if (accion === 'reiniciar') contador.value = 0
-
-  // 4️⃣ Emitimos el evento con la acción y el valor actual del contador
-  emit('accionRealizada', {
-    tipo: accion,
-    valor: contador.value,
-    fecha: new Date().toLocaleTimeString()
-  })
-}
-</script>
-
 <template>
-  <div class="home">
-    <h1>🧮 Contador Vue 3</h1>
-    <p>Valor actual: {{ contador }}</p>
+  <div class="p-6 space-y-4">
+    <h1 class="text-3xl font-bold">Home</h1>
+    <h2 class="text-xl text-gray-600">Fundamentos</h2>
 
-    <div class="botones">
-      <button @click="manejarAccion('incrementar')">➕ Incrementar</button>
-      <button @click="manejarAccion('decrementar')">➖ Decrementar</button>
-      <button @click="manejarAccion('reiniciar')">🔁 Reiniciar</button>
+    <p class="text-gray-700">homePage works!</p>
+
+    <!-- Navegación -->
+    <RouterLink
+      to="/perfil"
+      class="inline-block px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+    >
+      Ir al Perfil
+    </RouterLink>
+
+    <!-- Contadores -->
+    <h1 class="text-2xl font-semibold">Contador: {{ counter }}</h1>
+    <h1 class="text-2xl font-semibold">
+      Contador Signal: {{ counterSignal }}
+    </h1>
+
+    <div class="space-x-2">
+      <button @click="changeValue(1)" class="btn">Incrementar</button>
+      <button @click="changeValue(-1)" class="btn bg-red-500">
+        Restar
+      </button>
+      <button @click="resetValue(0)" class="btn bg-gray-700">
+        RESET
+      </button>
     </div>
   </div>
 </template>
 
+<script setup lang="ts">
+import { ref, watchEffect } from "vue";
+
+// contador normal
+const counter = ref(0);
+
+// equivalente al signal() de Angular
+const counterSignal = ref(0);
+
+// actualizar signal cada segundo
+setInterval(() => {
+  counterSignal.value++;
+}, 1000);
+
+const changeValue = (value: number) => {
+  counter.value += value;
+  counterSignal.value += value;
+};
+
+const resetValue = (value: number) => {
+  counter.value = value;
+  counterSignal.value = value;
+};
+</script>
+
 <style scoped>
-.home {
-  text-align: center;
-  margin-top: 2rem;
-}
-.botones {
-  margin-top: 1rem;
-}
-button {
-  margin: 0.5rem;
-  padding: 0.6rem 1.2rem;
-  border: none;
-  border-radius: 8px;
-  background-color: #42b883;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-}
-button:hover {
-  background-color: #2f9e6e;
+.btn {
+  @apply px-4 py-2 rounded-lg text-white bg-blue-500 hover:bg-blue-600;
 }
 </style>

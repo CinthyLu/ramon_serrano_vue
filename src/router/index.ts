@@ -3,14 +3,24 @@ import { createRouter, createWebHistory } from 'vue-router'
 // Importa las páginas
 import HomePage from '../views/HomePage.vue'
 import PerfilPage from '../views/PerfilPage.vue'
-import Perfil2Page from '../views/Perfil2Page.vue'
+import ProyectosPage from '../views/ProyectosPage.vue'
+import ProyectosDosPage from '../views/ProyectosDosPage.vue'
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHistory(),
   routes: [
-    { path: '/', component: HomePage },
-    { path: '/perfil', component: PerfilPage },
-    { path: '/perfil2', component: Perfil2Page },
+    { path: '/', name: "Home", component: HomePage },
+    { path: '/perfil', name: "Perfil", component: PerfilPage },
+    {
+      path: "/proyectos",
+      name: "Proyectos",
+      component: ProyectosPage,
+    },
+    {
+      path: "/proyectos-dos",
+      name: "ProyectosDos",
+      component: ProyectosDosPage,
+    },
   ],
 })
 
