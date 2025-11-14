@@ -3,8 +3,9 @@
     <h1>Mi Aplicación Vue 3</h1>
     <nav>
       <RouterLink to="/">🏠 Inicio</RouterLink> |
-      <RouterLink to="/perfil">👤 Perfil</RouterLink> |
-      <RouterLink to="/perfil2">👥 Perfil 2</RouterLink>
+      <RouterLink to="/proyectos"> Proyecto</RouterLink> |
+      <RouterLink to="/proyectos-dos"> Proyecto 2</RouterLink>
+
     </nav>
   </header>
 
